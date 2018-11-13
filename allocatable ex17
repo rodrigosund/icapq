@@ -86,3 +86,57 @@ SUBROUTINE GeRT_SUB()
     END DO
 
 END SUBROUTINE
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FUNÇAO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+PROGRAM qwer
+
+    USE ASDAD
+
+    IMPLICIT NONE
+
+    INTEGER:: I
+
+    INTERFACE
+        REAL FUNCTION GeRT_FUNC(I)
+        INTEGER, INTENT(IN):: I
+        END FUNCTION
+
+    END INTERFACE
+
+
+    NP = INT((IntX(2)-IntX(1))/IncX)
+
+PRINT*, NP
+
+    ALLOCATE (X(0:NP,2), GERT(0:NP))
+
+   DO I= 0, NP
+        X(I,1) = FLOAT(I)*IncX
+        X(I,2) = 1.0E0 - X(I,1)
+        GERT(I) = GeRT_FUNC(I)
+   END DO
+
+    DO I= 0, NP
+
+        WRITE(*,*) X(I,:), GERT(I)
+
+    END DO
+END PROGRAM qwer
+
+REAL FUNCTION GeRT_FUNC(I)
+
+    USE ASDAD
+    IMPLICIT NONE
+    INTEGER, INTENT(IN):: I
+
+
+
+        GeRT_FUNC = X(I,1)*X(I,2)**2 * (Aij(1)+ 2.0E0*(Aij(2)-Aij(1))*X(I,1)) + &
+                  X(I,2)*X(I,1)**2 * (Aij(2)+ 2.0E0*(Aij(1)-Aij(2))*X(I,2))
+
+
+
+END FUNCTION
