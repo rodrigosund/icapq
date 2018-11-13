@@ -26,3 +26,63 @@ PROGRAM qwer
 
     END DO
 END PROGRAM qwer
+
+
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXX             SUBROTINA               XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+XXXXXXXXXXXXX MODULO
+
+MODULE ASDAD
+
+ REAL, ALLOCATABLE, DIMENSION(:,:):: X
+    INTEGER::  NP
+    REAL, ALLOCATABLE, DIMENSION(:):: GERT
+    REAL, PARAMETER, DIMENSION(2):: Aij = (/0.59E0, 1.42E0/)
+    REAL, PARAMETER, DIMENSION(2):: IntX = (/0.0E0, 1.0E0/)
+    REAL, PARAMETER:: IncX = 0.05E0
+
+END MODULE ASDAD
+
+XXXXXXXXXXXXX MAIN
+
+PROGRAM qwer
+
+    USE ASDAD
+
+    IMPLICIT NONE
+
+    INTEGER:: I
+
+
+    NP = INT((IntX(2)-IntX(1))/IncX)
+
+PRINT*, NP
+
+    ALLOCATE (X(0:NP,2), GERT(0:NP))
+
+    CALL GeRT_SUB
+
+    DO I= 0, NP
+
+        WRITE(*,*) X(I,:), GERT(I)
+
+    END DO
+END PROGRAM qwer
+
+SUBROUTINE GeRT_SUB()
+
+    USE ASDAD
+
+    DO I= 0, NP
+        X(I,1) = FLOAT(I)*IncX
+        X(I,2) = 1.0E0 - X(I,1)
+
+        GERT(i) = X(I,1)*X(I,2)**2 * (Aij(1)+ 2.0E0*(Aij(2)-Aij(1))*X(I,1)) + &
+                  X(I,2)*X(I,1)**2 * (Aij(2)+ 2.0E0*(Aij(1)-Aij(2))*X(I,2))
+
+    END DO
+
+END SUBROUTINE
