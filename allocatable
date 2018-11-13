@@ -1,0 +1,28 @@
+PROGRAM qwer
+
+    IMPLICIT NONE
+    REAL, ALLOCATABLE, DIMENSION(:,:):: X
+    INTEGER:: I, NP
+    REAL, ALLOCATABLE, DIMENSION(:):: GERT
+    REAL, PARAMETER, DIMENSION(2):: Aij = (/0.59E0, 1.42E0/)
+    REAL, PARAMETER, DIMENSION(2):: IntX = (/0.0E0, 1.0E0/)
+    REAL, PARAMETER:: IncX = 0.1E0
+
+    NP = INT((IntX(2)-IntX(1))/IncX)
+
+
+
+    ALLOCATE (X(0:NP,2), GERT(0:NP))
+
+    DO I= 0, NP
+        X(I,1) = FLOAT(I)*IncX
+        X(I,2) = 1.0E0 - X(I,1)
+
+        GERT(i) = X(I,1)*X(I,2)**2 * (Aij(1)+ 2.0E0*(Aij(2)-Aij(1))*X(I,1)) + &
+                  X(I,2)*X(I,1)**2 * (Aij(2)+ 2.0E0*(Aij(1)-Aij(2))*X(I,2))
+
+        PRINT*, X(I,:), GERT(I)
+
+
+    END DO
+END PROGRAM qwer
